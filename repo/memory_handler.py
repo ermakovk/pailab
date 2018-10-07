@@ -79,7 +79,6 @@ class RepoObjectMemoryStorage(RepoStore):
     def __init__(self):
         self._store = {}
         self._name_to_category = {}
-        self._categories = {}
 
     def add(self, obj):
         """ Add an object of given category to the storage.
@@ -104,9 +103,6 @@ class RepoObjectMemoryStorage(RepoStore):
         obj['repo_info'][repo_objects.RepoInfoKey.VERSION.value] = len(
             tmp[name])-1
         self._name_to_category[name] = category
-        if not category in self._categories.keys():
-            self._categories[category] = set()
-        self._categories[category].add(name)
         return obj['repo_info'][repo_objects.RepoInfoKey.VERSION.value]
 
     def get(self, name, versions=None, modifier_versions=None, obj_fields=None,  repo_info_fields=None):
